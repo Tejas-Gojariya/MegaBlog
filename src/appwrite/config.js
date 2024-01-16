@@ -33,7 +33,7 @@ export class Service {
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, stutus, userId }) {
+    async updatePost(slug, { title, content, featuredImage, stutus }) {
         try {
             return await this.Databases.updateDocument(
                 conf.appwriteDatabaseId,
@@ -92,9 +92,11 @@ export class Service {
     // file upload service
     async uploadFile(file) {
         try {
-            return await this.bucket.createFile();
-            conf.appwriteBucketId, ID.unique();
-            file;
+            return await this.bucket.createFile(
+                conf.appwriteBucketId,
+                ID.unique(),
+                file
+            );
         } catch (error) {
             console.log("Appwrite servise :: uploadFile :: error ", error);
             return false;
